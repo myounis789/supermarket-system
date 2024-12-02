@@ -1,3 +1,5 @@
+import java.text.DecimalFormat;
+
 public class Main {
     public static void main(String[] args) {
         System.out.println("Supermarket Checkout System: ");
@@ -15,7 +17,7 @@ public class Main {
         cart.addItem(item4, 2); // 2 Dates
  
         double total = cart.calculateTotal();
-        System.out.println("Total Price: £ " + total);
+        DecimalFormat df = new DecimalFormat("#.00"); //output formatting to 2.d.p
+        System.out.println("Total Price: £" + df.format(total));
     }
- }
- 
+}
