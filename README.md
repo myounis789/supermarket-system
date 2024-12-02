@@ -39,6 +39,6 @@ This will run the Main class and display the checkout system in action.
 
 If you have any questions or suggestions, feel free to reach out:
 
-Name: Mohammed Younis
-Email: younism50@gmail.com
+Name: Mohammed Younis || 
+Email: younism50@gmail.com || 
 GitHub: myounis789
