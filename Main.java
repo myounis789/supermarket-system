@@ -15,7 +15,7 @@ public class Main {
         cart.addItem(item4, 2); // 2 Dates
  
         double total = cart.calculateTotal();
-        System.out.println("Total Price: £" + total);
+        System.out.println("Total Price: £ " + total);
     }
  }
  
