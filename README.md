@@ -18,8 +18,7 @@ To install and run the Supermarket Checkout System, follow these steps:
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/myounis789/supermarket-syste
-.git
+   git clone https://github.com/myounis789/supermarket-system.git
    cd supermarket-system
 
 2. **Compile the code:**
