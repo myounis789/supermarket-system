@@ -36,4 +36,17 @@ public class Cart {
         }
         return total; // Return the calculated total price
     }
+
+    // Method to print the shopping list with formatting for prices
+    public void printShoppingList() {
+        // Loop through each item in the cart
+        for (Map.Entry<Item, Integer> entry : items.entrySet()) {
+            Item item = entry.getKey();
+            int quantity = entry.getValue();
+            double itemTotal = item.getPrice() * quantity;
+
+            // Print each item's name, quantity, and formatted total price
+            System.out.printf("%s x%d = £%.2f\n", item.getName(), quantity, itemTotal);
+        }
+    }
 }
