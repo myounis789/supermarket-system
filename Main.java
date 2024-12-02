@@ -1,25 +1,21 @@
-// Main class to execute the Supermarket Checkout System
 public class Main {
-    // Main method where the program execution begins
     public static void main(String[] args) {
-        // Print the heading of the system
         System.out.println("Supermarket Checkout System: ");
         
-        // Create two items with name and price
-        Item item1 = new Item("Apple", 1.50);  // Item with name "Apple" and price $1.50
-        Item item2 = new Item("Banana", 0.80); // Item with name "Banana" and price $0.80
-        
-        // Create a new Cart object to hold items
+        // Creating items with price and special offers
+        Item item1 = new Item("Apple", 0.50, 3, 1.30); // Special offer: 3 for £1.30
+        Item item2 = new Item("Banana", 0.30, 2, 0.45); // Special offer: 2 for £0.45
+        Item item3 = new Item("Carrot", 0.20, 0, 0); // No special offer
+        Item item4 = new Item("Date", 0.15, 0, 0); // No special offer
+ 
         Cart cart = new Cart();
-        
-        // Add the items to the cart
-        cart.addItem(item1);  // Add the Apple item to the cart
-        cart.addItem(item2);  // Add the Banana item to the cart
-        
-        // Calculate the total price of items in the cart
+        cart.addItem(item1, 7); // 7 Apples
+        cart.addItem(item2, 5); // 5 Bananas
+        cart.addItem(item3, 2); // 2 Carrots
+        cart.addItem(item4, 2); // 2 Dates
+ 
         double total = cart.calculateTotal();
-        
-        // Print the total price of items in the cart
-        System.out.println("Total Price: $" + total);
+        System.out.println("Total Price: £" + total);
     }
-}
+ }
+ 
