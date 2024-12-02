@@ -21,7 +21,8 @@ To install and run the Supermarket Checkout System, follow these steps:
    git clone https://github.com/YOUR_GITHUB_USERNAME/supermarket-checkout.git
    cd supermarket-checkout
 
-2. **Compile the code:**0
+2. **Compile the code:**
+
  If you have Java installed, compile the code with:
 
    javac src/supermarket/*.java
