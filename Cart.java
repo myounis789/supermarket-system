@@ -1,27 +1,52 @@
-// Cart class representing a shopping cart in the supermarket checkout system
-import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Cart {
-    // Private instance variable to store the list of items in the cart
-    private ArrayList<Item> items;
+    // Private field for storing items in the cart
+    private Map<Item, Integer> items;
 
-    // Constructor to initialize an empty cart with no items
+    // Constructor initializes the items map
     public Cart() {
-        items = new ArrayList<>(); // Create a new ArrayList to hold the items in the cart
+        items = new HashMap<>();
     }
 
-    // Method to add an item to the cart
-    public void addItem(Item item) {
-        items.add(item); // Add the given item to the list of items in the cart
+    // Method to add items to the cart
+    // Takes an Item object and a quantity to add the item to the cart
+    public void addItem(Item item, int quantity) {
+        items.put(item, items.getOrDefault(item, 0) + quantity);
     }
 
-    // Method to calculate the total price of all items in the cart
+    // Method to calculate the total price of items in the cart, applying special offers if applicable
     public double calculateTotal() {
-        double total = 0; // Initialize the total price to 0
-        // Loop through each item in the cart and add its price to the total
-        for (Item item : items) {
-            total += item.getPrice(); // Add the price of the current item to the total
+        double total = 0;
+
+        // Loop through each item in the cart
+        for (Map.Entry<Item, Integer> entry : items.entrySet()) {
+            Item item = entry.getKey();
+            int quantity = entry.getValue();
+
+            // Apply special pricing if applicable
+            if (item.getOfferQuantity() > 0 && quantity >= item.getOfferQuantity()) {
+                int offerSets = quantity / item.getOfferQuantity(); // Number of offer sets
+                int remainingItems = quantity % item.getOfferQuantity(); // Remaining items after applying offers
+                total += offerSets * item.getOfferPrice() + remainingItems * item.getPrice(); // Calculate total with special offer
+            } else {
+                total += quantity * item.getPrice(); // Calculate total without special offer
+            }
         }
-        return total; // Return the final total price
+        return total; // Return the calculated total price
+    }
+
+    // Method to print the shopping list with formatting for prices
+    public void printShoppingList() {
+        // Loop through each item in the cart
+        for (Map.Entry<Item, Integer> entry : items.entrySet()) {
+            Item item = entry.getKey();
+            int quantity = entry.getValue();
+            double itemTotal = item.getPrice() * quantity;
+
+            // Print each item's name, quantity, and formatted total price
+            System.out.printf("%s x%d = £%.2f\n", item.getName(), quantity, itemTotal);
+        }
     }
 }
