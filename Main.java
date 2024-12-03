@@ -1,11 +1,14 @@
+
+import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
 public class Main {
+
     public static void main(String[] args) {
         System.out.println("Supermarket Checkout System: ");
-        
+
         // Creating items with price and special offers
         Item itemA = new Item("Apple", 0.50, 3, 1.30); // Special offer: 3 for £1.30
         Item itemB = new Item("Banana", 0.30, 2, 0.45); // Special offer: 2 for £0.45
@@ -52,6 +55,12 @@ public class Main {
 
             // Add item to cart
             cart.addItem(selectedItem, quantity);
+
+            //Display the runtime total as each item is added to cart
+            double total = cart.calculateTotal();
+            DecimalFormat df = new DecimalFormat("#.00");
+            System.out.println();
+            System.out.println("Current Total: £" + df.format(total));
 
             // Ask if user wants to continue shopping
             System.out.print("Thank you. Would you like to purchase more items? (y/n): ");
