@@ -1,7 +1,10 @@
+
+import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.Map;
 
 public class Cart {
+
     // Private field for storing items in the cart
     private Map<Item, Integer> items;
 
@@ -11,12 +14,12 @@ public class Cart {
     }
 
     // Method to add items to the cart
-    // Takes an Item object and a quantity to add the item to the cart
     public void addItem(Item item, int quantity) {
+        // Update the item quantity in the cart
         items.put(item, items.getOrDefault(item, 0) + quantity);
     }
 
-    // Method to calculate the total price of items in the cart, applying special offers if applicable
+// Adjusting total calculation logic to apply discounts correctly:
     public double calculateTotal() {
         double total = 0;
 
@@ -25,28 +28,37 @@ public class Cart {
             Item item = entry.getKey();
             int quantity = entry.getValue();
 
-            // Apply special pricing if applicable
+            // Apply the special offer if applicable
             if (item.getOfferQuantity() > 0 && quantity >= item.getOfferQuantity()) {
                 int offerSets = quantity / item.getOfferQuantity(); // Number of offer sets
-                int remainingItems = quantity % item.getOfferQuantity(); // Remaining items after applying offers
-                total += offerSets * item.getOfferPrice() + remainingItems * item.getPrice(); // Calculate total with special offer
+                int remainingItems = quantity % item.getOfferQuantity(); // Remaining items
+                total += offerSets * item.getOfferPrice() + remainingItems * item.getPrice();
             } else {
-                total += quantity * item.getPrice(); // Calculate total without special offer
+                total += quantity * item.getPrice(); // No special offer
             }
         }
-        return total; // Return the calculated total price
+        return total; // Return the total price
     }
 
-    // Method to print the shopping list with formatting for prices
+    // Updated method to print shopping list with correct pricing
     public void printShoppingList() {
-        // Loop through each item in the cart
         for (Map.Entry<Item, Integer> entry : items.entrySet()) {
             Item item = entry.getKey();
             int quantity = entry.getValue();
-            double itemTotal = item.getPrice() * quantity;
 
-            // Print each item's name, quantity, and formatted total price
-            System.out.printf("%s x%d = £%.2f\n", item.getName(), quantity, itemTotal);
+            // Calculate the total cost for the item considering the offer
+            double itemTotal = 0;
+            if (item.getOfferQuantity() > 0 && quantity >= item.getOfferQuantity()) {
+                int offerSets = quantity / item.getOfferQuantity(); // Apply the offer
+                int remainingItems = quantity % item.getOfferQuantity();
+                itemTotal = offerSets * item.getOfferPrice() + remainingItems * item.getPrice();
+            } else {
+                itemTotal = quantity * item.getPrice(); // No special offer
+            }
+
+            // Print the item and its total cost
+            DecimalFormat df = new DecimalFormat("0.00");
+            System.out.println(item.getName() + " x" + quantity + " = £" + df.format(itemTotal));
         }
     }
 }

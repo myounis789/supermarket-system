@@ -1,4 +1,3 @@
-import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -17,8 +16,8 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         boolean continueShopping = true;
 
-        // Loop for adding items to the cart
         while (continueShopping) {
+            // Display available items
             System.out.println("Select an item to purchase: ");
             System.out.println("A. Apple - £0.50 each or 3 for £1.30");
             System.out.println("B. Banana - £0.30 each or 2 for £0.45");
@@ -28,28 +27,33 @@ public class Main {
             String itemSelection = scanner.nextLine().toUpperCase();
 
             Item selectedItem = null;
-            // Selecting the item based on user input
-            if (itemSelection.equals("A")) {
-                selectedItem = itemA;
-            } else if (itemSelection.equals("B")) {
-                selectedItem = itemB;
-            } else if (itemSelection.equals("C")) {
-                selectedItem = itemC;
-            } else if (itemSelection.equals("D")) {
-                selectedItem = itemD;
-            } else {
-                System.out.println("Invalid selection. Please try again.");
-                continue;
+            switch (itemSelection) {
+                case "A":
+                    selectedItem = itemA;
+                    break;
+                case "B":
+                    selectedItem = itemB;
+                    break;
+                case "C":
+                    selectedItem = itemC;
+                    break;
+                case "D":
+                    selectedItem = itemD;
+                    break;
+                default:
+                    System.out.println("Invalid selection. Please try again.");
+                    continue;
             }
 
-            // Asking the user for the quantity
+            // Ask for the quantity
             System.out.print("Enter the quantity you would like: ");
             int quantity = scanner.nextInt();
             scanner.nextLine(); // Consume newline character
 
+            // Add item to cart
             cart.addItem(selectedItem, quantity);
 
-            // Asking the user if they want to continue shopping
+            // Ask if user wants to continue shopping
             System.out.print("Thank you. Would you like to purchase more items? (y/n): ");
             String continueResponse = scanner.nextLine().toLowerCase();
             if (continueResponse.equals("n")) {
@@ -61,10 +65,9 @@ public class Main {
         System.out.println("\nShopping List:");
         cart.printShoppingList();
 
-        // Calculate total and format it to 2 decimal places
+        // Calculate total
         double total = cart.calculateTotal();
-        DecimalFormat df = new DecimalFormat("#.00"); // Output formatting to 2 decimal places
-        System.out.println("Total Price: £" + df.format(total)); // Print formatted total price
+        System.out.printf("Total Price: £%.2f\n", total);
 
         scanner.close();
     }
